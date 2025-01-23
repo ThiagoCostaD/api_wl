@@ -1,23 +1,23 @@
 version: "3.8"
 
 services:
-  db_ingresso:
-    container_name: db_api_dev
+  db_api_wl:
+    container_name: db_api_wl_dev
     image: postgres:13-alpine
     volumes:
-      - postgres_api_wl_data:/var/lib/postgresql/data/
+      - postgres_api_wl:/var/lib/postgresql/data/
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWD}
-      - DJANGO_SETTINGS_MODULE=ingresso_express.settings
+      - DJANGO_SETTINGS_MODULE=api_wl.settings
     env_file:
       - ./.env.dev
     ports:
       - "5435:5432"
 
-  web_ingresso:
-    container_name: api_wl_dev
+  web_api_wl:
+    container_name: web_api_wl_dev
     image: api_wl_dev_img
     build: .
     tty: true
@@ -26,8 +26,7 @@ services:
     ports:
       - 8000:8000
     depends_on:
-      - db_api
-
+      - db_api_wl
     env_file:
       - ./.env.dev
 
