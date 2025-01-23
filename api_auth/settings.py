@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_yasg',
+    'wallets',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +144,12 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'API Auth',
+    'DESCRIPTION': 'API para gerenciar carteiras digitais e transações financeiras.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
+
+AUTH_USER_MODEL = 'wallets.User'
