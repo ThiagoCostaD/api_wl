@@ -21,35 +21,38 @@ endif
 	docker-compose -f docker-compose-dev.yaml --env-file=.env.dev up -d --build
 
 makemigrations:
-	docker exec -ti web_ingresso_dev python manage.py makemigrations
+	docker exec -ti web_api_wl_dev python manage.py makemigrations
 
 migrate:
-	docker exec -ti web_ingresso_dev python manage.py migrate
+	docker exec -ti web_api_wl_dev python manage.py migrate
 
 createsuperuser:
-	docker exec -ti web_ingresso_dev python manage.py createsuperuser
+	docker exec -ti web_api_wl_dev python manage.py createsuperuser
+
+collectstatic:
+	docker exec -ti web_api_wl_dev python manage.py collectstatic
 
 start:
 	docker-compose -f docker-compose-dev.yaml start
-	docker exec -ti web_ingresso_dev python manage.py runserver 0.0.0.0:8000
+	docker exec -ti web_api_wl_dev python manage.py runserver 0.0.0.0:8000
 
 stop:
 	docker-compose -f docker-compose-dev.yaml stop 
 
 test:
-	docker exec -ti web_ingresso_dev  pytest . --cov-report term --cov=. --cov-fail-under=80
+	docker exec -ti web_api_wl_dev pytest . --cov-report term --cov=. --cov-fail-under=80
 
 lint:
 	@echo "\n########## Runs isort, black and flake8. Organizing and linting code. ###########\n"
 	@echo "############################### Running isort ###################################\n"
-	docker exec -ti web_ingresso_dev isort .
-	docker exec -ti -u root web_ingresso_dev chown -R app:app /app 
+	docker exec -ti web_api_wl_dev isort .
+	docker exec -ti -u root web_api_wl_dev chown -R app:app /app 
 	@echo "\n################################# Running black #################################\n"
-	docker exec -ti web_ingresso_dev black .
-	docker exec -ti -u root web_ingresso_dev chown -R app:app /app 
+	docker exec -ti web_api_wl_dev black .
+	docker exec -ti -u root web_api_wl_dev chown -R app:app /app 
 	@echo "\n################################ Running flake8. ################################\n"
-	docker exec -ti web_ingresso_dev flake8 .
-	docker exec -ti -u root web_ingresso_dev chown -R app:app /app 
+	docker exec -ti web_api_wl_dev flake8 .
+	docker exec -ti -u root web_api_wl_dev chown -R app:app /app 
 
 pre: 
 	make lint
@@ -57,17 +60,15 @@ pre:
 
 isort:
 	@echo "############################### Running isort ###################################\n"
-	docker exec -ti web_ingresso_dev isort .
-	docker exec -ti -u root web_ingresso_dev chown -R app:app /app 
+	docker exec -ti web_api_wl_dev isort .
+	docker exec -ti -u root web_api_wl_dev chown -R app:app /app 
 
 black:
 	@echo "\n################################# Running black #################################\n"
-	docker exec -ti web_ingresso_dev black .
-	docker exec -ti -u root web_ingresso_dev chown -R app:app /app 
+	docker exec -ti web_api_wl_dev black .
+	docker exec -ti -u root web_api_wl_dev chown -R app:app /app 
 
 flake8:
 	@echo "\n################################ Running flake8. ################################\n"
-	docker exec -ti web_ingresso_dev flake8 .
-	docker exec -ti -u root web_ingresso_dev chown -R app:app /app 
-
-
+	docker exec -ti web_api_wl_dev flake8 .
+	docker exec -ti -u root web_api_wl_dev chown -R app:app /app 

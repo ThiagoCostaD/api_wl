@@ -7,10 +7,9 @@ services:
     volumes:
       - postgres_api_wl:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_DB=${DB_NAME}
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWD}
-      - DJANGO_SETTINGS_MODULE=api_wl.settings
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     env_file:
       - ./.env.dev
     ports:
