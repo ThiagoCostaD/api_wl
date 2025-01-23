@@ -1,4 +1,4 @@
-# API Authentication :rocket: 
+# API Authentication :rocket:
 
 ## Descrição do Projeto :book:
 
@@ -12,6 +12,7 @@ API para gestão de carteiras digitais e transações financeiras, permitindo au
 - **Django Rest Framework (DRF)**: Extensão do Django que facilita a construção de APIs RESTful, fornecendo ferramentas robustas para serialização, autenticação, permissões e endpoints eficientes.
 - **Git**: Controle de versão do código.
 - **Makefile**: Para automação de comandos do projeto.
+- **Swagger**: Documentação da API.
 
 ## Pré-requisitos :warning:
 
@@ -23,7 +24,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 `docker --version`
 
-##### Caso não retorne uma versão é necessário instalar essas dependências, antes de continuar e rodar o projeto.
+#### Caso não retorne uma versão é necessário instalar essas dependências, antes de continuar e rodar o projeto
 
 ____________________________________________________________________________________________________________________
 
