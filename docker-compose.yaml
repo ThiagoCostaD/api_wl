@@ -9,6 +9,8 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    networks:
+      - mynetwork
 
   web:
     build: .
@@ -19,6 +21,11 @@ services:
       - 8000:8000
     depends_on:
       - db
+    networks:
+      - mynetwork
 
 volumes:
   postgres_data:
+
+networks:
+  mynetwork:

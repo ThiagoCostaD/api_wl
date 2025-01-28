@@ -20,6 +20,7 @@ services:
     image: api_wl_dev_img
     build: .
     tty: true
+    #command: command runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:

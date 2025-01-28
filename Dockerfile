@@ -11,9 +11,9 @@ RUN addgroup -S app && adduser -S app -G app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Instala as dependências do PostgreSQL e GCC
+# Instala as dependências do PostgreSQL, GCC e ferramentas auxiliares
 RUN apk update \
-  && apk add --no-cache postgresql-dev gcc musl-dev
+  && apk add --no-cache postgresql-dev gcc musl-dev bash curl
 
 # Atualiza o pip
 RUN pip install --upgrade pip
@@ -22,8 +22,15 @@ RUN pip install --upgrade pip
 COPY ./requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
 
+# Baixa e configura o script wait-for-it
+RUN curl -o /usr/local/bin/wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh \
+  && chmod +x /usr/local/bin/wait-for-it.sh
+
 # Copia o projeto
 COPY . /app
 
 # Altera o usuário para o usuário não-root
 USER app
+
+# Executa o comando de inicialização
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
