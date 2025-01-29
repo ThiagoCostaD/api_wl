@@ -6,4 +6,4 @@ from wallets.models import Transaction
 class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
-        fields = ['id', 'sender', 'receiver', 'timestamp', 'amount']
+        fields = ["id", "sender", "receiver", "timestamp", "amount"]
