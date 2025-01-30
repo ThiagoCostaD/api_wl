@@ -5,30 +5,36 @@ services:
     container_name: db_api_wl_dev
     image: postgres:13-alpine
     volumes:
-      - postgres_api_wl:/var/lib/postgresql/data/
+      - postgres_api_wl:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    env_file:
-      - ./.env.dev
     ports:
       - "5435:5432"
+    networks:
+      - api_wl_network
 
   web_api_wl:
     container_name: web_api_wl_dev
     image: api_wl_dev_img
     build: .
     tty: true
-    #command: command runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:
-      - 8000:8000
+      - "8000:8000"
     depends_on:
       - db_api_wl
     env_file:
       - ./.env.dev
+    networks:
+      - api_wl_network
 
 volumes:
-  postgres_api_wl:
+  postgres_api_wl: {}
+
+networks:
+  api_wl_network:
+    name: api_wl_network 
+    driver: bridge

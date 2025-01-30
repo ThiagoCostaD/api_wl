@@ -3,6 +3,7 @@ version: '3.8'
 services:
   db:
     image: postgres:13-alpine
+    container_name: db
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
@@ -14,7 +15,11 @@ services:
 
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    container_name: django_app
+    command: >
+      sh -c "until pg_isready -h db -p 5432 -U postgres; do sleep 1; done &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
     ports:
@@ -29,3 +34,4 @@ volumes:
 
 networks:
   mynetwork:
+    driver: bridge
